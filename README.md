@@ -74,6 +74,7 @@ Navigation is handled in `MainWindow.xaml.cs` using a simple method like:
 ```csharp
 MainContent.Children.Clear();
 MainContent.Children.Add(new DashboardView());
+```
 
 ---
 
