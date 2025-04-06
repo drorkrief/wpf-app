@@ -78,4 +78,13 @@ MainContent.Children.Add(new DashboardView());
 
 ---
 
-Let me know if you want to add badges (build status, .NET version, etc.) or want it in Hebrew too — I can remix it however you want!
+`
+/Views
+   LoginView.xaml
+   DashboardView.xaml
+/Assets
+   logos, icons, fonts
+MainWindow.xaml
+MainWindow.xaml.cs
+App.xaml
+`
