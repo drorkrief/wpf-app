@@ -78,7 +78,7 @@ MainContent.Children.Add(new DashboardView());
 
 ---
 
-`
+```
 /Views
    LoginView.xaml
    DashboardView.xaml
@@ -87,4 +87,4 @@ MainContent.Children.Add(new DashboardView());
 MainWindow.xaml
 MainWindow.xaml.cs
 App.xaml
-`
+```
