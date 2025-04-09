@@ -111,6 +111,7 @@ namespace wpf_app
         }
         private void ShowError()
         {
+            HandleLoaderVisibility(false);
             ErrorText.Text = "❌ An error occurred. Check your password again.";
             ErrorText.Visibility = Visibility.Visible;
             UserNameText.Text = "";
@@ -134,7 +135,7 @@ namespace wpf_app
             this.KeyDown += SecretCloseKey;
             _hookID = SetHook(HookCallback);
         }
-       
+
         private void SecretCloseKey(object sender, KeyEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.Q)
