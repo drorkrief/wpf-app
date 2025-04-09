@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
@@ -11,6 +12,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
 
 namespace wpf_app
 {
@@ -73,6 +75,47 @@ namespace wpf_app
             //MessageBox.Show("Card Read: " + cardData);
             ToggleCardPanel();
             HandleLoaderVisibility(true);
+            FetchUserAsync(1);
+        }
+        private async Task FetchUserAsync(int userId)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    string url = $"https://jsonplaceholder.typicode.com/users/{userId}";
+                    HttpResponseMessage response = await client.GetAsync(url);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        var user = JsonConvert.DeserializeObject<User>(json);
+
+                        UserNameText.Text = $"👤 Name: {user.Name}";
+                        UserEmailText.Text = $"📧 Email: {user.Email}";
+                        UserCityText.Text = $"🌍 City: {user.Address.City}";
+
+                        ErrorText.Visibility = Visibility.Collapsed;
+                        HandleLoaderVisibility(false);
+                    }
+                    else
+                    {
+                        ShowError();
+                    }
+                }
+                catch
+                {
+                    ShowError();
+                }
+            }
+        }
+        private void ShowError()
+        {
+            ErrorText.Text = "❌ An error occurred. Check your password again.";
+            ErrorText.Visibility = Visibility.Visible;
+            UserNameText.Text = "";
+            UserEmailText.Text = "";
+            UserCityText.Text = "";
         }
         private void HandleLoaderVisibility(bool isVisible)
         {
@@ -145,4 +188,16 @@ namespace wpf_app
             base.OnClosed(e);
         }
     }
+}
+public class User
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Email { get; set; }
+    public Address Address { get; set; }
+}
+
+public class Address
+{
+    public string City { get; set; }
 }
