@@ -1,4 +1,4 @@
-﻿# 🎯 Birth Date Scanner & Dashboard (WPF App)
+﻿# 🎯 Students Dashboard (WPF App) For students progression 
 
 A sleek and modern WPF application designed for scanning user IDs and displaying a personalized dashboard experience. Built with love using C#, XAML, and good vibes. 🧠✨
 
