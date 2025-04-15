@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
-
+using wpf_app.Models;
 namespace wpf_app
 {
     /// <summary>
@@ -190,15 +190,5 @@ namespace wpf_app
         }
     }
 }
-public class User
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public string Email { get; set; }
-    public Address Address { get; set; }
-}
 
-public class Address
-{
-    public string City { get; set; }
-}
+
