@@ -81,28 +81,38 @@ namespace wpf_app
         {
             using (HttpClient client = new HttpClient())
             {
+                MessageBox.Show("This is a quick debug check 1!" + client);
                 try
                 {
-                    string url = $"https://jsonplaceholder.typicode.com/users/{userId}";
+                    string url = "https://login-logout-api.onrender.com/posts";
+                    //string url = "http://localhost:3033/posts";
+                    client.DefaultRequestHeaders.Add("x-api-key", "sk-2e7a0b1c");
+                    MessageBox.Show("This is a quick debug check 2!" + client);
                     HttpResponseMessage response = await client.GetAsync(url);
-
+                    MessageBox.Show("This is a quick debug check 3!" + response);
+                    Console.WriteLine("Response: " + response.StatusCode);
                     if (response.IsSuccessStatusCode)
                     {
+                        Console.WriteLine("Success");
                         string json = await response.Content.ReadAsStringAsync();
-                        var user = JsonConvert.DeserializeObject<User>(json);
-
-                        UserNameText.Text = $"👤 Name: {user.Name}";
-                        UserEmailText.Text = $"📧 Email: {user.Email}";
-                        UserCityText.Text = $"🌍 City: {user.Address.City}";
-
-                        ErrorText.Visibility = Visibility.Collapsed;
-                        HandleLoaderVisibility(false);
+                        var users = JsonConvert.DeserializeObject<List<User>>(json);
+                        var user = users?.FirstOrDefault();
+                        Console.WriteLine(user);
+                        if (user != null)
+                        {
+                            UserNameText.Text = $"👤 Name: {user.Name}";
+                            //UserEmailText.Text = $"📧 Email: {user.Email}";
+                            //UserCityText.Text = $"🌍 City: {user.Address.City}";
+                            ErrorText.Visibility = Visibility.Collapsed;
+                            HandleLoaderVisibility(false);
+                        }
                     }
                     else
                     {
                         ShowError();
                     }
                 }
+
                 catch
                 {
                     ShowError();
